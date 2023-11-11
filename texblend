@@ -148,8 +148,13 @@ local function prepare_command(metadata,arguments)
     elseif metadata.compiler == "xelatex" then
       options[#options + 1] = "-x"
     end
-    options[#options+1] = metadata.options
-    options[#options+1] = "-"
+    local texoptions = metadata.options
+    options[#options+1] = texoptions
+    texoptions = texoptions or ""
+    -- if texoptions already contain the - character, don't add it
+    if not texoptions:match("%-%s") and not texoptions:match("%-$") then
+      options[#options+1] = "-"
+    end
   else
     command = metadata.compiler
     options[#options + 1] = "-jobname=" .. metadata.output
