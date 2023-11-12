@@ -80,8 +80,11 @@ local function get_metadata(content)
   -- also variant with  % !TEX TS-var is supported
   -- program is used for the compilation and root is the template document
   local metadata = {}
-  metadata.compiler = content:match("%%%s*![Tt][Ee][Xx] T?S?%-?program%s*=%s*([^%s]+)") or "pdflatex"
-  metadata.root = content:match("%%%s*![Tt][Ee][Xx] T?S?%-?root%s*=%s*([^\n]+)") 
+  for key, value in content:gmatch("%%%s*![Tt][Ee][Xx] T?S?%-?(.-)%s*=%s*([^\n]+)") do
+    metadata[key] = value
+  end
+  metadata.compiler = metadata.compiler or "pdflatex"
+  -- remove possible white space at the end of root filename
   if metadata.root then metadata.root = metadata.root:gsub("%s*$", "") end
   return metadata
 end
