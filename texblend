@@ -177,8 +177,8 @@ local function compile(command, document)
 end
 
 -- process command line options
-local arguments = lapp(cmd_options)
-if arg[1] ~= "__test__" then
+local arguments 
+if not __test__ then
   arguments = lapp(cmd_options)
 
   -- handle non file actions

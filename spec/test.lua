@@ -1,6 +1,6 @@
 require "busted.runner" ()
 package.path=package.path .. ';?'
-arg[1] = "__test__"
+_G.__test__ = true
 local texblend = require("texblend")
 describe("test metadata parsing", function()
   it("should parse simple metadata", function()
@@ -31,9 +31,8 @@ hello world
     local metadata = texblend.get_metadata(more)
     assert.string(metadata.root)
     assert.same(metadata.root, "spaces in filenames are evil.tex")
-
-
   end)
-
+end)
+describe("test preamble parsing", function()
 end)
 
