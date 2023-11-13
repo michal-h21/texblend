@@ -83,7 +83,7 @@ local function get_metadata(content)
   for key, value in content:gmatch("%%%s*![Tt][Ee][Xx] T?S?%-?(.-)%s*=%s*([^\n]+)") do
     metadata[key] = value
   end
-  metadata.compiler = metadata.compiler or "pdflatex"
+  metadata.program = metadata.program or "pdflatex"
   -- remove possible white space at the end of root filename
   if metadata.root then metadata.root = metadata.root:gsub("%s*$", "") end
   return metadata
@@ -102,10 +102,10 @@ local function use_arguments(metadata, arguments)
     -- base output filename on the input filename if we don't get explicit filename
     metadata.output = mkutils.remove_extension(arguments.filename)
   end
-  -- handle compiler
-  metadata.compiler = arguments.pdflatex and "pdflatex" or metadata.compiler
-  metadata.compiler = arguments.lualatex and "lualatex" or metadata.compiler
-  metadata.compiler = arguments.xelatex and "xelatex" or metadata.compiler
+  -- handle program
+  metadata.program = arguments.pdflatex and "pdflatex" or metadata.program
+  metadata.program = arguments.lualatex and "lualatex" or metadata.program
+  metadata.program = arguments.xelatex and "xelatex" or metadata.program
   -- handle the template
   metadata.root = arguments.template or metadata.root
   -- pass other useful flags
@@ -146,9 +146,9 @@ local function prepare_command(metadata,arguments)
     command = "make4ht"
     options[#options + 1] = "-j " .. metadata.output
     options[#options + 1] = metadata.shell_escape and "-s" or nil
-    if metadata.compiler == "lualatex" then
+    if metadata.program == "lualatex" then
       options[#options + 1] = "-l"
-    elseif metadata.compiler == "xelatex" then
+    elseif metadata.program == "xelatex" then
       options[#options + 1] = "-x"
     end
     local texoptions = metadata.options
@@ -159,7 +159,7 @@ local function prepare_command(metadata,arguments)
       options[#options+1] = "-"
     end
   else
-    command = metadata.compiler
+    command = metadata.program
     options[#options + 1] = "-jobname=" .. metadata.output
     options[#options + 1] = metadata.shell_escape and "-shell-escape" or nil
     options[#options+1] = metadata.options
@@ -228,11 +228,13 @@ if not __test__ then
   log:info(command)
   compile(command, full_document)
 else
-  local m = {}
-  m.prepare_command  = prepare_command
-  m.prepare_template = prepare_template
-  m.get_metadata     = get_metadata
-  return m
+  return {
+     prepare_command  = prepare_command
+    ,prepare_template = prepare_template
+    ,get_metadata     = get_metadata
+    ,use_arguments    = use_arguments
+    ,get_preamble     = get_preamble
+  }
 end
 
 
