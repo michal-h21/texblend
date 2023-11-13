@@ -178,52 +178,61 @@ end
 
 -- process command line options
 local arguments = lapp(cmd_options)
+if arg[1] ~= "__test__" then
+  arguments = lapp(cmd_options)
 
--- handle non file actions
--- arguments.help is handled automatically by lapp
-if arguments.version then
-  print(version_info)
-  os.exit()
-end
+  -- handle non file actions
+  -- arguments.help is handled automatically by lapp
+  if arguments.version then
+    print(version_info)
+    os.exit()
+  end
 
 
-local metadata, document 
-local filename = arguments.filename
-if filename == "-" then
-  -- read from the standard input if the filename is - 
-  document = io.read("*all")
-  metadata = get_metadata(document)
+  local metadata, document 
+  local filename = arguments.filename
+  if filename == "-" then
+    -- read from the standard input if the filename is - 
+    document = io.read("*all")
+    metadata = get_metadata(document)
+  else
+    -- otherwise, load the input file and get metadata
+    metadata, document = load_document(filename)
+  end
+
+  exit_on_error(metadata, document)
+
+  -- enrich metadata with command line arguments
+  metadata = use_arguments(metadata, arguments)
+
+  -- user needs to add explicit output filename when dealing with the standard input
+  if metadata.output == "-" then
+    exit_on_error(nil, "Empty output filename. Use the -o option")
+  end
+
+  metadata.template, msg = metadata.root and load_template(metadata.root) or default_template
+
+  exit_on_error(metadata.template, msg)
+
+  local full_document, msg = prepare_template(document, metadata.template)
+
+  exit_on_error(full_document, msg)
+
+  if arguments.print then
+    print(full_document)
+    os.exit()
+  end
+
+  local command = prepare_command(metadata, arguments)
+
+  log:info(command)
+  compile(command, full_document)
 else
-  -- otherwise, load the input file and get metadata
-  metadata, document = load_document(filename)
+  local m = {}
+  m.prepare_command  = prepare_command
+  m.prepare_template = prepare_template
+  m.get_metadata     = get_metadata
+  return m
 end
-
-exit_on_error(metadata, document)
-
--- enrich metadata with command line arguments
-metadata = use_arguments(metadata, arguments)
-
--- user needs to add explicit output filename when dealing with the standard input
-if metadata.output == "-" then
-  exit_on_error(nil, "Empty output filename. Use the -o option")
-end
-
-metadata.template, msg = metadata.root and load_template(metadata.root) or default_template
-
-exit_on_error(metadata.template, msg)
-
-local full_document, msg = prepare_template(document, metadata.template)
-
-exit_on_error(full_document, msg)
-
-if arguments.print then
-  print(full_document)
-  os.exit()
-end
-
-local command = prepare_command(metadata, arguments)
-
-log:info(command)
-compile(command, full_document)
 
 
