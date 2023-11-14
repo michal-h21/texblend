@@ -41,6 +41,8 @@ local default_template = [[\documentclass{article}
 
 
 local function exit_on_error(status, msg)
+  -- function that tests function results
+  -- it prints error messages and exits if there was an error
   if not status then 
     log:error( msg)
     os.exit(1)
@@ -149,8 +151,10 @@ end
 
 
 local function prepare_command(metadata,arguments)
+  -- prepare CLI program to be executed 
   local options = {}
   local command 
+  -- we support HTML creation thanks to make4ht
   if metadata.html then
     command = "make4ht"
     options[#options + 1] = "-j " .. metadata.output
@@ -177,6 +181,7 @@ local function prepare_command(metadata,arguments)
 end
 
 local function compile(command, document)
+  -- execute the command
   local cmd = io.popen(command, "w")
   if not cmd then
     exit_on_error(nil, "Cannot run command")
@@ -185,9 +190,10 @@ local function compile(command, document)
   cmd:close()
 end
 
--- process command line options
 local arguments 
+-- you can set the _G.test=true if you want to load texblend as a library for testing
 if not __test__ then
+  -- process command line options
   arguments = lapp(cmd_options)
 
   -- handle non file actions
