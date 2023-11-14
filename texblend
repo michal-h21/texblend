@@ -121,7 +121,7 @@ end
 local function expand(metadata, template)
   -- expand {{variablename}} tags in the template. The variablename key must exitst
   -- in the metadata table. If the variable doesn't exist, nothing is rendered
-  local expanded = template:gsub("{{([^%s]-)}}", function(key)
+  local expanded = template:gsub("{{([%a%d}]-)}}", function(key)
     return metadata[key] or ""
   end)
   return expanded
@@ -229,6 +229,10 @@ if not __test__ then
   metadata.template, msg = metadata.root and load_template(metadata.root) or default_template
 
   exit_on_error(metadata.template, msg)
+
+  if arguments.expand then
+    metadata.template = expand(metadata,metadata.template)
+  end
 
   local full_document, msg = prepare_template(document, metadata.template)
 
