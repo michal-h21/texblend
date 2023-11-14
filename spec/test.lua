@@ -93,6 +93,9 @@ describe("test expand", function()
   it("should expand variable", function()
     local template = "this is {{hello}}"
     assert.same(texblend.expand(metadata, template), "this is world")
+    metadata["x1"] = "numeric"
+    template = "try {{x1}}"
+    assert.same(texblend.expand(metadata, template), "try numeric")
   end)
   it("should ignore unknown variable",function()
     local template = "this is {{unknown}}"
@@ -103,6 +106,8 @@ describe("test expand", function()
     local template = "this is \\command{{something} else}"
     -- remove unknown tag
     assert.same(texblend.expand(metadata, template), "this is \\command{{something} else}")
+    local template = "\\command{{{hello}}}"
+    assert.same(texblend.expand(metadata, template), "\\command{world}")
   end)
 end)
 
