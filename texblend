@@ -121,9 +121,10 @@ end
 local function expand(metadata, template)
   -- expand {{variablename}} tags in the template. The variablename key must exitst
   -- in the metadata table. If the variable doesn't exist, nothing is rendered
-  return template:gsub("{{([^%s]-)}}", function(key)
+  local expanded = template:gsub("{{([^%s]-)}}", function(key)
     return metadata[key] or ""
   end)
+  return expanded
 end
 
 local function load_file(filename)
