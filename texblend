@@ -7,7 +7,7 @@ local mkutils = require "mkutils"
 local log = logging.new("TeXBlend")
 
 local version_info = "TeXBlend version {{version}}"
-local cmd_options = [[TeXBlend: Compiles Segments of LaTeX Documents
+local cmd_options = [[TeXBlend: Compile Segments of LaTeX Documents
 
 This tool compiles individual files that are included as parts of larger documents. 
 It utilizes the preamble of the main document but disregards all other included files.
