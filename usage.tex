@@ -1,4 +1,51 @@
 \section{Usage}
+
+\subsection{Structure of \TeX\ Files}
+
+The basic usage is as follows: consider a main document that includes files for
+individual chapters, named for example \texttt{main.tex}:
+
+
+\begin{verbatim}
+\documentclass{article}
+\author{John Doe}
+\title{Sample Document}
+\usepackage{upquote}
+\usepackage{microtype}
+\usepackage{hyperref}
+\begin{document}
+\maketitle
+\tableofcontents
+\input{intro}
+\input{usage}
+\end{document}
+\end{verbatim}
+
+We can compile this document to obtain a PDF file containing the text of all
+chapters. However, by using \TeX Blend, we can generate separate PDFs for each
+chapter. The advantage is that all commands defined in the packages used in the
+main document will be available.
+
+In the included files, we can use special directives that indicate the main
+file and the engine to be used for compilation. Similar directives are employed
+by various \TeX editors, such as \TeX Shop or \TeX Works.
+
+For instance, a file like \texttt{intro.tex}, which is included in the main document,
+might look like this:
+
+\begin{verbatim}
+% !TEX root = main.tex
+% !TEX TS-program = lualatex
+
+\section{Introduction}
+This tool compiles individual files that are included 
+as parts of larger documents. 
+\end{verbatim}
+
+
+
+\subsection{HTML Support}
+
 \TeX4ht note about the \verb|--texoptions| command line option: you can use
 this option to pass all command line arguments to \verb|make4ht|. You may need
 to include the \verb|-| character in the place of filename for the correct

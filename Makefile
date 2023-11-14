@@ -3,7 +3,7 @@
 doc_root = texblend-doc
 doc_tex  = $(doc_root).tex
 doc_pdf  = $(doc_root).pdf
-tex_sources = $(doc_tex) intro.tex
+tex_sources = $(doc_tex) intro.tex usage.tex
 
 ifeq ($(strip $(shell git rev-parse --is-inside-work-tree 2>/dev/null)),true)
 	VERSION:= $(shell git --no-pager describe --abbrev=0 --tags --always )
