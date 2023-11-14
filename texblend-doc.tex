@@ -1,8 +1,15 @@
 \documentclass{article}
 \author{Michal Hoftich}
-\title{\texttt{texblend} -- compile }
+\title{\texttt{\TeX blend} -- Compile Segments of LaTeX Documents}
 \usepackage{upquote}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{fontspec}
+\setmainfont{Linux Libertine O}
+\usepackage{luacode}
 \begin{document}
 \maketitle
-\include{intro}
+\tableofcontents
+\input{intro}
+\input{usage}
 \end{document}
