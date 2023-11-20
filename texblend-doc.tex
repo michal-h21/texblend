@@ -1,6 +1,11 @@
 \documentclass{article}
 \author{Michal Hoftich}
-\title{\texttt{\TeX blend} -- Compile Segments of LaTeX Documents}
+\ifdefined\gitdate\else
+  \def\gitdate{\today}
+  \def\version{}
+\fi
+\title{\texttt{\TeX Blend} -- Compile Segments of LaTeX Documents}
+\date{Version \version, \gitdate}
 \usepackage{upquote}
 \usepackage{microtype}
 \usepackage{hyperref}
