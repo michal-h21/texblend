@@ -7,9 +7,10 @@ tex_sources = $(doc_tex) intro.tex usage.tex
 readme_ctan = readme-ctan.txt
 SCRIPT = texblend
 BUILD_DIR = build
-BUILD_TEXBLEND = $(BUILD_DIR)/texblend
+BUILD_TEXBLEND = $(BUILD_DIR)/$(SCRIPT)
 BUILD_SCRIPT = $(BUILD_TEXBLEND)/$(SCRIPT)
 BUILD_README = $(BUILD_TEXBLEND)/README
+
 
 REPLACE_VERSION = sed -e "s/{{version}}/${VERSION}/"
 
@@ -35,5 +36,6 @@ build: test $(doc_pdf)
 	cat $(readme_ctan) | $(REPLACE_VERSION) > $(BUILD_README)
 	cat $(SCRIPT) | $(REPLACE_VERSION)	> $(BUILD_SCRIPT)
 	chmod +x $(BUILD_SCRIPT)
+	cd $(BUILD_DIR) && zip -r  $(SCRIPT).zip $(SCRIPT)
 
 
