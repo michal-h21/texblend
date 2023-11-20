@@ -1,0 +1,3 @@
+TeXBlend 
+
+Version {{version}}
