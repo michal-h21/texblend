@@ -13,3 +13,10 @@ particular part of the document being worked on.
 
 The documentation is automatically created from TeX sources. 
 You can see it [here](https://www.kodymirus.cz/texblend/).
+
+## Install
+
+The `texblend` command is self-contained, you can just copy it to a directory
+in the path where your system looks for commands. On Linux, this could be for example
+`$HOME/.local/bin/`. If this directory exists on your system, you can also try
+the `make install` command, which will put the script there automatically.
