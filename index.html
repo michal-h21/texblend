@@ -18,14 +18,17 @@
 <h2 class='titleHead'>TeXBlend – Compile Segments of LaTeX
 Documents</h2>
 <div class='author'><span class='ec-lmr-12'>Michal Hoftich</span></div><br />
-<div class='date'><span class='ec-lmr-12'>Version , November 20, 2023</span></div>
+<div class='date'><span class='ec-lmr-12'>Version , November 21, 2023</span></div>
 </div>   
 <h3 class='likesectionHead' id='contents'><a id='x1-1000'></a>Contents</h3>
 <div class='tableofcontents'>   
 <span class='sectionToc'>1 <a href='#introduction' id='QQ2-1-2'>Introduction</a></span>
-<br />   <span class='sectionToc'>2 <a href='#usage' id='QQ2-1-3'>Usage</a></span>
-<br />   <span class='subsectionToc'>2.1 <a href='#structure-of-tex-files' id='QQ2-1-4'>Structure of TeX Files</a></span>
-<br />   <span class='subsectionToc'>2.2 <a href='#html-support' id='QQ2-1-5'>HTML Support</a></span>
+<br />   <span class='sectionToc'>2 <a href='#structure-of-tex-files' id='QQ2-1-3'>Structure of TeX Files</a></span>
+<br />   <span class='subsectionToc'>2.1 <a href='#placement-of-the-main-document-and-templates' id='QQ2-1-4'>Placement of the Main Document and Templates</a></span>
+<br />   <span class='subsectionToc'>2.2 <a href='#custom-variables-in-templates' id='QQ2-1-5'>Custom Variables in Templates</a></span>
+<br />   <span class='subsectionToc'>2.3 <a href='#template-documents' id='QQ2-1-6'>Template Documents</a></span>
+<br />   <span class='sectionToc'>3 <a href='#usage' id='QQ2-1-7'>Usage</a></span>
+<br />   <span class='subsectionToc'>3.1 <a href='#html-support' id='QQ2-1-8'>HTML Support</a></span>
 </div>
 <!-- l. 4 --><p class='noindent'>
 </p>   
@@ -37,16 +40,13 @@ files.
 eliminating the need to recompile the entire document. This facilitates an efficient
 way to check for formatting or syntax errors in the particular part of the document
 being worked on.
-</p><!-- l. 1 --><p class='noindent'>
-</p>   
-<h3 class='sectionHead' id='usage'><span class='titlemark'>2   </span> <a id='x1-30002'></a>Usage</h3>
                                                                   
 
                                                                   
-<!-- l. 3 --><p class='noindent'>
+</p><!-- l. 13 --><p class='noindent'>
 </p>   
-<h4 class='subsectionHead' id='structure-of-tex-files'><span class='titlemark'>2.1   </span> <a id='x1-40002.1'></a>Structure of TeX Files</h4>
-<!-- l. 5 --><p class='noindent'>The basic usage is as follows: consider a main document that includes files for
+<h3 class='sectionHead' id='structure-of-tex-files'><span class='titlemark'>2   </span> <a id='x1-30002'></a>Structure of TeX Files</h3>
+<!-- l. 15 --><p class='noindent'>The basic usage is as follows: consider a main document that includes files for
 individual chapters, named for example <span class='ec-lmtt-10'>main.tex</span>:
                                                                   
 
@@ -66,15 +66,15 @@ individual chapters, named for example <span class='ec-lmtt-10'>main.tex</span>:
 \input{usage}
 \end{document}
 </pre>
-<!-- l. 22 --><p class='nopar'>
-</p><!-- l. 24 --><p class='indent'>   We can compile this document to obtain a PDF file containing the text of all
+<!-- l. 32 --><p class='nopar'>
+</p><!-- l. 34 --><p class='indent'>   We can compile this document to obtain a PDF file containing the text of all
 chapters. However, by using TeXBlend, we can generate separate PDFs for each
 chapter. The advantage is that all commands defined in the packages used in the
 main document will be available.
-</p><!-- l. 29 --><p class='indent'>   In the included files, we can use special directives that indicate the main file and
+</p><!-- l. 39 --><p class='indent'>   In the included files, we can use special directives that indicate the main file and
 the engine to be used for compilation. Similar directives are employed by various
 TeXeditors, such as TeXShop or TeXWorks.
-</p><!-- l. 33 --><p class='indent'>   For instance, a file like <span class='ec-lmtt-10'>intro.tex</span>, which is included in the main document,
+</p><!-- l. 43 --><p class='indent'>   For instance, a file like <span class='ec-lmtt-10'>intro.tex</span>, which is included in the main document,
 might look like this:
                                                                   
 
@@ -88,31 +88,128 @@ might look like this:
 This tool compiles individual files that are included
 as parts of larger documents.
 </pre>
-<!-- l. 43 --><p class='nopar'>
-</p><!-- l. 47 --><p class='noindent'>
+<!-- l. 53 --><p class='nopar'>
+</p><!-- l. 55 --><p class='indent'>   Notice the comments at the beginning of the file. These are known as directives,
+indicating the main document and the engine to be used for compilation. Many
+TeX editors support these directives, and we utilize them in TeXBlend to effectively
+control the compilation process too.
+</p><!-- l. 60 --><p class='indent'>   These directives follow a specific format, requiring placement at the beginning of
+the file and commencing with a percentage sign. Subsequently, there is a space
+followed by either the marker <span class='ec-lmtt-10'>!TEX </span>or <span class='ec-lmtt-10'>!TeX</span>, both of which are recognized
+formats. The next element is the property name with an optional <span class='ec-lmtt-10'>TS- </span>prefix (in
+line with the TeX Shop editor), followed by an equals sign and, finally, the
+value.
+</p><!-- l. 68 --><p class='indent'>   Two crucial properties are <span class='ec-lmtt-10'>root</span>, indicating the name of the main file, and
+<span class='ec-lmtt-10'>program</span>, through which we can select the program for compiling the document.
+However, it is possible to specify additional properties, which can then be utilized in
+template documents.
+</p><!-- l. 73 --><p class='noindent'>
 </p>   
-<h4 class='subsectionHead' id='html-support'><span class='titlemark'>2.2   </span> <a id='x1-50002.2'></a>HTML Support</h4>
-<!-- l. 49 --><p class='noindent'>TeX4ht note about the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--texoptions</span></span></span> command line option: you can use this option
-to pass all command line arguments to <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>make4ht</span></span></span>. You may need to include the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>-</span></span></span>
-character in the place of filename for the correct execution.
-</p><!-- l. 54 --><p class='indent'>   For example, if you want to use the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>fn-in</span></span></span> option, use the following command:
+<h4 class='subsectionHead' id='placement-of-the-main-document-and-templates'><span class='titlemark'>2.1   </span> <a id='x1-40002.1'></a>Placement of the Main Document and Templates</h4>
+<!-- l. 75 --><p class='noindent'>You can specify the full path to the main document in the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>root</span></span></span> property. TeXBlend
+can also be used to compile documents using a universal template. The path to this
+template can be specified in full or can leverage the directory structure of TeX by
+placing it in a directory recognized by the KPSE library. This directory is typically
+designated for user packages, commonly found at <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>~/texmf/tex/latex</span></span></span>, although it
+may vary on different systems. You can identify its location on your system using the
+command:
                                                                   
 
                                                                   
 </p>   
 <pre class='verbatim' id='verbatim-3'>
-$ texblend  -H -O '- "fn-in"' sample.tex
+$ kpsewhich --var-value TEXMFHOME
 </pre>
-<!-- l. 58 --><p class='nopar'>
-</p><!-- l. 60 --><p class='indent'>   If you want to use for example a configuration file, use
+<!-- l. 85 --><p class='nopar'>
+</p><!-- l. 87 --><p class='indent'>   This command typically outputs a path similar to this: <span class='ec-lmtt-10'>/home/username/texmf</span>.
+If this directory does not exist, create it. Further, within this directory, create the
+subdirectories <span class='ec-lmtt-10'>tex/latex/templates</span>:
                                                                   
 
                                                                   
 </p>   
 <pre class='verbatim' id='verbatim-4'>
+$ mkdir -p ~/texmf/tex/latex/templates
+</pre>
+<!-- l. 93 --><p class='nopar'>
+</p><!-- l. 95 --><p class='indent'>   You can then place your templates in this directory. To test the availability of the
+template, run the following command:
+                                                                  
+
+                                                                  
+</p>   
+<pre class='verbatim' id='verbatim-5'>
+$ kpsewhich templatename.tex
+</pre>
+<!-- l. 100 --><p class='nopar'>
+</p><!-- l. 102 --><p class='indent'>   It should print path of the template document.
+</p><!-- l. 104 --><p class='noindent'>
+</p>   
+<h4 class='subsectionHead' id='custom-variables-in-templates'><span class='titlemark'>2.2   </span> <a id='x1-50002.2'></a>Custom Variables in Templates</h4>
+<!-- l. 106 --><p class='noindent'>As templates are intended to be universal across various projects, it is possible to
+incorporate variables into them. These variables can be populated from properties in
+the directives, such as the document title.
+</p><!-- l. 110 --><p class='indent'>   To include variables for expansion in the template, you can use the notation
+<span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>{{variableName}}</span></span></span>. For example, to set the document title, you can use
+<span class='ec-lmtt-10'>\title{{{title}}}</span>. The double curly braces around the variable will be
+replaced with its value, while the third pair of curly braces will remain in the
+document.
+</p><!-- l. 116 --><p class='indent'>   Say that you have a following template saved in 
+<a class='url' href='~/texmf/tex/latex/templates/mytemplate.tex'><span class='ec-lmtt-10'>~/texmf/tex/latex/templates/mytemplate.tex</span></a>:
+                                                                  
+
+                                                                  
+</p>   
+<pre class='verbatim' id='verbatim-6'>
+\documentclass{article}
+\title{{{title}}}
+\author{Michal}
+\usepackage{microtype}
+\begin{document}
+\end{document}
+</pre>
+<!-- l. 125 --><p class='nopar'>
+</p><!-- l. 128 --><p class='indent'>   A document that utilizes this template may look like the following:
+                                                                  
+
+                                                                  
+</p>   
+<pre class='verbatim' id='verbatim-7'>
+% !TEX root = mytemplate.tex
+% !TEX title = hello world
+\maketitle
+</pre>
+<!-- l. 134 --><p class='nopar'>
+</p><!-- l. 138 --><p class='noindent'>
+</p>   
+<h4 class='subsectionHead' id='template-documents'><span class='titlemark'>2.3   </span> <a id='x1-60002.3'></a>Template Documents</h4>
+<!-- l. 1 --><p class='noindent'>
+</p>   
+<h3 class='sectionHead' id='usage'><span class='titlemark'>3   </span> <a id='x1-70003'></a>Usage</h3>
+<!-- l. 5 --><p class='noindent'>
+</p>   
+<h4 class='subsectionHead' id='html-support'><span class='titlemark'>3.1   </span> <a id='x1-80003.1'></a>HTML Support</h4>
+<!-- l. 7 --><p class='noindent'>TeX4ht note about the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--texoptions</span></span></span> command line option: you can use this option
+to pass all command line arguments to <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>make4ht</span></span></span>. You may need to include the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>-</span></span></span>
+character in the place of filename for the correct execution.
+</p><!-- l. 12 --><p class='indent'>   For example, if you want to use the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>fn-in</span></span></span> option, use the following command:
+                                                                  
+
+                                                                  
+</p>   
+<pre class='verbatim' id='verbatim-8'>
+$ texblend  -H -O '- "fn-in"' sample.tex
+</pre>
+<!-- l. 16 --><p class='nopar'>
+</p><!-- l. 18 --><p class='indent'>   If you want to use for example a configuration file, use
+                                                                  
+
+                                                                  
+</p>   
+<pre class='verbatim' id='verbatim-9'>
 $ texblend -l -H -O '-c config.cfg - "fn-in"' sample.tex
 </pre>
-<!-- l. 64 --><p class='nopar'>
+<!-- l. 22 --><p class='nopar'>
 </p>   
  
 </body> 
