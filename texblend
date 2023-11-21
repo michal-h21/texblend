@@ -30,6 +30,9 @@ Available options:
 -v,--version                  Print version info
 -x,--xelatex                  Select xelatex as compiler explicitly
 <filename> (string)           Use "-" if you want to pass document from the standard input
+
+Documentation:                https://www.kodymirus.cz/texblend/
+Bug reports and development:  https://github.com/michal-h21/texblend
 ]]
 
 
