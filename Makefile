@@ -1,4 +1,4 @@
-.PHONY: all test build
+.PHONY: all test build install
 
 doc_root = texblend-doc
 doc_tex  = $(doc_root).tex
@@ -37,5 +37,12 @@ build: test $(doc_pdf)
 	cat $(SCRIPT) | $(REPLACE_VERSION)	> $(BUILD_SCRIPT)
 	chmod +x $(BUILD_SCRIPT)
 	cd $(BUILD_DIR) && zip -r  $(SCRIPT).zip $(SCRIPT)
+
+install:
+	ln -s `realpath texblend` ${HOME}/.local/bin/texblend
+
+
+
+
 
 
