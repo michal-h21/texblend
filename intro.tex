@@ -10,3 +10,132 @@ eliminating the need to recompile the entire document.
 This facilitates an efficient way to check for formatting or syntax errors in
 the particular part of the document being worked on.
 
+\section{Structure of \TeX\ Files}
+
+The basic usage is as follows: consider a main document that includes files for
+individual chapters, named for example \texttt{main.tex}:
+
+
+\begin{verbatim}
+\documentclass{article}
+\author{John Doe}
+\title{Sample Document}
+\usepackage{upquote}
+\usepackage{microtype}
+\usepackage{hyperref}
+\begin{document}
+\maketitle
+\tableofcontents
+\input{intro}
+\input{usage}
+\end{document}
+\end{verbatim}
+
+We can compile this document to obtain a PDF file containing the text of all
+chapters. However, by using \TeX Blend, we can generate separate PDFs for each
+chapter. The advantage is that all commands defined in the packages used in the
+main document will be available.
+
+In the included files, we can use special directives that indicate the main
+file and the engine to be used for compilation. Similar directives are employed
+by various \TeX editors, such as \TeX Shop or \TeX Works.
+
+For instance, a file like \texttt{intro.tex}, which is included in the main document,
+might look like this:
+
+\begin{verbatim}
+% !TEX root = main.tex
+% !TEX TS-program = lualatex
+
+\section{Introduction}
+This tool compiles individual files that are included 
+as parts of larger documents. 
+\end{verbatim}
+
+Notice the comments at the beginning of the file. These are known as
+directives, indicating the main document and the engine to be used for
+compilation. Many \TeX\ editors support these directives, and we utilize them in
+\TeX Blend to effectively control the compilation process too.
+
+These directives follow a specific format, requiring placement at the beginning
+of the file and commencing with a percentage sign. Subsequently, there is a
+space followed by either the marker \texttt{!TEX} or \texttt{!TeX}, 
+both of which are recognized formats. 
+The next element is the property name with an optional \texttt{TS-} prefix 
+(in line with the TeX Shop editor), followed by an equals sign and, finally, the
+value.
+
+Two crucial properties are \texttt{root}, indicating the name of the main file, and
+\texttt{program}, through which we can select the program for compiling the document.
+However, it is possible to specify additional properties, which can then be
+utilized in template documents.
+
+\subsection{Placement of the Main Document and Templates}
+
+You can specify the full path to the main document in the \verb|root| property.
+\TeX Blend can also be used to compile documents using a universal template. 
+The path to this template can be specified in full or can leverage the directory
+structure of TeX by placing it in a directory recognized by the KPSE library.
+This directory is typically designated for user packages, commonly found at
+\verb|~/texmf/tex/latex|, although it may vary on different systems. 
+You can identify its location on your system using the command:
+
+\begin{verbatim}
+$ kpsewhich --var-value TEXMFHOME
+\end{verbatim}
+
+This command typically outputs a path similar to this: \texttt{/home/username/texmf}.
+If this directory does not exist, create it. Further, within this directory,
+create the subdirectories \texttt{tex/latex/templates}:
+
+\begin{verbatim}
+$ mkdir -p ~/texmf/tex/latex/templates
+\end{verbatim}
+
+You can then place your templates in this directory. 
+To test the availability of the template, run the following command:
+
+\begin{verbatim}
+$ kpsewhich templatename.tex
+\end{verbatim}
+
+It should print path of the template document.
+
+\subsection{Custom Variables in Templates}
+
+As templates are intended to be universal across various projects, it is
+possible to incorporate variables into them. These variables can be populated
+from properties in the directives, such as the document title.
+
+To include variables for expansion in the template, you can use the notation
+\verb|{{variableName}}|. For example, to set the document title, you can use
+\texttt{\textbackslash title\{\{\{title\}\}\}}. The double curly braces around the variable will be replaced
+with its value, while the third pair of curly braces will remain in the
+document.
+
+Say that you have a following template saved in \url{~/texmf/tex/latex/templates/mytemplate.tex}:
+
+\begin{verbatim}
+\documentclass{article}
+\title{{{title}}}
+\author{Michal}
+\usepackage{microtype}
+\begin{document}
+\end{document}
+\end{verbatim}
+
+
+A document that utilizes this template may look like the following:
+
+\begin{verbatim}
+% !TEX root = mytemplate.tex
+% !TEX title = hello world
+\maketitle
+\end{verbatim}
+
+
+
+\subsection{Template Documents}
+
+
+
