@@ -43,13 +43,13 @@ Available options:
 You can join multiple short options, for example the following call uses separate short options:
 
 \begin{verbatim}
-$ texblend -e -l -o test sample.tex
+$ texblend -e -l -o test chapter.tex
 \end{verbatim}
 
 It can be shortened to this form:
 
 \begin{verbatim}
-$ texblend -elo test sample.tex
+$ texblend -elo test chapter.tex
 \end{verbatim}
 
 
@@ -97,11 +97,11 @@ of the filename for proper execution.
 For example, if you want to use the \verb|fn-in| option for endnotes, use the following command:
 
 \begin{verbatim}
-$ texblend  --html --texoptions '- "fn-in"' sample.tex
+$ texblend  -HO '- "fn-in"' chapter.tex
 \end{verbatim}
 
 If you want to use a configuration file in addition, you will need this command:
 
 \begin{verbatim}
-$ texblend --html --texoptions '-c config.cfg - "fn-in"' sample.tex
+$ texblend -HO '-c config.cfg - "fn-in"' chapter.tex
 \end{verbatim}
