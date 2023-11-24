@@ -6,7 +6,7 @@ doc_pdf  = $(doc_root).pdf
 doc_html = $(doc_root).html
 
 tex_sources = $(doc_tex) intro.tex usage.tex
-readme_ctan = readme-ctan.txt
+readme_ctan = readme.ctan
 SCRIPT = texblend
 BUILD_DIR = build
 BUILD_TEXBLEND = $(BUILD_DIR)/$(SCRIPT)
@@ -14,11 +14,12 @@ BUILD_SCRIPT = $(BUILD_TEXBLEND)/$(SCRIPT)
 BUILD_README = $(BUILD_TEXBLEND)/README
 
 
-REPLACE_VERSION = sed -e "s/{{version}}/${VERSION}/"
+REPLACE_VERSION = sed -e "s/{{version}}/${VERSION}/" | sed -e "s/{{year}}/${YEAR}/"
 
 ifeq ($(strip $(shell git rev-parse --is-inside-work-tree 2>/dev/null)),true)
 	VERSION:= $(shell git --no-pager describe --abbrev=0 --tags --always )
 	DATE:= $(firstword $(shell git --no-pager show --date=short --format="%ad" --name-only))
+	YEAR:= $(shell date '+%Y')
 endif
 
 all: $(doc_pdf) $(doc_html)
