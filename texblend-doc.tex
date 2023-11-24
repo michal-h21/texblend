@@ -1,8 +1,18 @@
 \documentclass{article}
-\author{Michal Hoftich}
+\newcommand\authormail[1]{\footnote{\textless\url{#1}\textgreater}}
+\ifdefined\HCode
+  \renewcommand\authormail[1]{\space\textless\Link[#1]{}{}#1\EndLink\textgreater}
+\fi
+
+\usepackage{longtable}
+\usepackage{tabularx}
+\newenvironment{changelog}{\longtable{@{} l p{30em}}}{\endlongtable}
+\newcommand\change[2]{#1 & #2\\}
+
+\author{Michal Hoftich\authormail{michal.h21@gmail.com}}
 \ifdefined\gitdate\else
   \def\gitdate{\today}
-  \def\version{}
+  \def\version{devel}
 \fi
 \title{\texttt{\TeX Blend} -- Compile Segments of LaTeX Documents}
 \date{Version \version, \gitdate}
@@ -15,7 +25,22 @@
 \usepackage{luacode}
 \begin{document}
 \maketitle
+\begin{tabular}{l l}
+  Homepage: &\url{https://www.kodymirus.cz/texblend/}\\
+  Issue tracker:&  \url{https://github.com/michal-h21/texblend}
+\end{tabular}
 \tableofcontents
 \input{intro}
 \input{usage}
+
+\section{License}
+
+Permission is granted to copy, distribute and/or modify this software
+under the terms of the \LaTeX\ Project Public License, version 1.3.
+
+\section{Changelog}
+\begin{changelog}
+  \change{2023-11-24}{Initial release}
+\end{changelog}
+
 \end{document}
