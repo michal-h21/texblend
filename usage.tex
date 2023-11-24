@@ -1,22 +1,107 @@
+% !TEX root = texblend-doc.tex
+% !TEX TS-program = lualatex
 \section{Usage}
+
+The basic usage of \TeX Blend is as follows:
+
+\begin{verbatim}
+$ texblend chapter.tex
+\end{verbatim}
+
+This command combines the text from the document \texttt{chapter.tex} with the preamble
+from the main document specified in the root directive and directly compiles
+the resulting document. The output will be saved as \texttt{chapter.pdf}.
+
+\subsection{Command Line Options}
+
+TeXBlend supports a variety of command-line options:
+
+\begin{verbatim}
+ texblend [options] filename
+
+Available options:
+-e,--expand                   Expand variables in the template
+-h,--help                     Print the help message
+-H,--HTML                     Compile to HTML using TeX4ht
+-l,--lualatex                 Select lualatex as compiler 
+-o,--output (default "")      Set the output file name
+-O,--texoptions (default "")  Extra options that should be passed 
+                              to the LaTeX compiler
+-p,--pdflatex                 Select pdflatex as compiler 
+-P,--print                    Don't compile the document, 
+                              print the expanded template instead
+-s,--shell-escape             Enable execution of external 
+                              commands in LaTeX
+-t,--template (default "")    Use explicit template instead of 
+                              the one provided in the input file
+-v,--version                  Print version info
+-x,--xelatex                  Select xelatex as compiler 
+<filename> (string)           Use "-" if you want to pass 
+                              document from the standard input
+\end{verbatim}
+
+You can join multiple short options, for example the following call uses separate short options:
+
+\begin{verbatim}
+$ texblend -e -l -o test sample.tex
+\end{verbatim}
+
+It can be shortened to this form:
+
+\begin{verbatim}
+$ texblend -elo test sample.tex
+\end{verbatim}
+
+
+
+\subsection{Compilation Options}
+
+You can override the \verb'program' directive, which specifies the \LaTeX\ engine
+used, with one of the options \verb|--lualatex|, \verb|--xelatex|, or \verb|--pdflatex|. 
+The default program used when the document lacks a \verb'program' directive and none of these
+options is used is \verb|pdflatex|.
+
+If the document uses external commands, such as with the Minted or Imakeidx
+packages, you can utilize the \verb|--shell-escape| option.
+
+You can specify additional options for the LaTeX compiler using the \verb|--texoptions| option.
+
+Instead of compiling, you can print the assembled document to standard output
+using the option \verb|--print|.
+
+To change name of the generated PDF file, use the \verb|--output| option.
+
+
+\subsection{Usage of Templates}
+
+
+Instead of the main document specified in the \verb'root' directive, you can use
+another document as a template, chosen using the \verb|--template| option. You
+can use the entire file path or simply specify the file name, making use of the
+\verb'kpsewhich' command (see section~\ref{sec:placement}) to locate the file.
+
+If you are using variables in the template (see section~\ref{sec:variables}), use the
+\verb'--expand' option to expand them with the values specified in the document's
+directives.
+
 
 
 
 \subsection{HTML Support}
 
-\TeX4ht note about the \verb|--texoptions| command line option: you can use
-this option to pass all command line arguments to \verb|make4ht|. You may need
-to include the \verb|-| character in the place of filename for the correct
-execution.
+\TeX Blend supports direct export to HTML using \TeX4ht. A note regarding the
+\verb|--texoptions| command line option: you can utilize this option to pass all
+command-line arguments to \verb|make4ht|. Ensure to include the \verb|-| character in place
+of the filename for proper execution.
 
-For example, if you want to use the \verb|fn-in| option, use the following command:
+For example, if you want to use the \verb|fn-in| option for endnotes, use the following command:
 
 \begin{verbatim}
-$ texblend  -H -O '- "fn-in"' sample.tex
+$ texblend  --html --texoptions '- "fn-in"' sample.tex
 \end{verbatim}
 
-If you want to use for example a configuration file, use
+If you want to use a configuration file in addition, you will need this command:
 
 \begin{verbatim}
-$ texblend -l -H -O '-c config.cfg - "fn-in"' sample.tex
+$ texblend --html --texoptions '-c config.cfg - "fn-in"' sample.tex
 \end{verbatim}

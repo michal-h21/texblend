@@ -38,7 +38,7 @@ main document will be available.
 
 In the included files, we can use special directives that indicate the main
 file and the engine to be used for compilation. Similar directives are employed
-by various \TeX editors, such as \TeX Shop or \TeX Works.
+by various \TeX\ editors, such as \TeX Shop or \TeX Works.
 
 For instance, a file like \texttt{intro.tex}, which is included in the main document,
 might look like this:
@@ -52,7 +52,7 @@ This tool compiles individual files that are included
 as parts of larger documents. 
 \end{verbatim}
 
-Notice the comments at the beginning of the file. These are known as
+Notice the comments at the beginning of the file. These are
 directives, indicating the main document and the engine to be used for
 compilation. Many \TeX\ editors support these directives, and we utilize them in
 \TeX Blend to effectively control the compilation process too.
@@ -71,6 +71,7 @@ However, it is possible to specify additional properties, which can then be
 utilized in template documents.
 
 \subsection{Placement of the Main Document and Templates}
+\label{sec:placement}
 
 You can specify the full path to the main document in the \verb|root| property.
 \TeX Blend can also be used to compile documents using a universal template. 
@@ -101,7 +102,7 @@ $ kpsewhich templatename.tex
 
 It should print path of the template document.
 
-\subsection{Custom Variables in Templates}
+\subsection{Custom Variables in Templates}\label{sec:variables}
 
 As templates are intended to be universal across various projects, it is
 possible to incorporate variables into them. These variables can be populated
@@ -109,8 +110,8 @@ from properties in the directives, such as the document title.
 
 To include variables for expansion in the template, you can use the notation
 \verb|{{variableName}}|. For example, to set the document title, you can use
-\texttt{\textbackslash title\{\{\{title\}\}\}}. The double curly braces around the variable will be replaced
-with its value, while the third pair of curly braces will remain in the
+\texttt{\textbackslash title\{\{\{title\}\}\}}. The double curly braces around
+the variable will be replaced with its value, while the third pair of curly braces will remain in the
 document.
 
 Say that you have a following template saved in \url{~/texmf/tex/latex/templates/mytemplate.tex}:
@@ -134,8 +135,19 @@ A document that utilizes this template may look like the following:
 \end{verbatim}
 
 
+This produces a following document with variables expanded:
 
-\subsection{Template Documents}
+\begin{verbatim}
+\documentclass{article}
+\title{hello world}
+\author{Michal}
+\usepackage{microtype}
+\begin{document}
+% !TEX root = mytemplate.tex
+% !TEX title = hello world
+\maketitle
+\end{document}
+\end{verbatim}
 
-
+You can require expansion of variables using the \verb|--expand| command line option.
 
