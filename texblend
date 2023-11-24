@@ -22,7 +22,7 @@ Available options:
 -H,--HTML                     Compile to HTML using TeX4ht
 -l,--lualatex                 Select lualatex as compiler explicitly
 -o,--output (default "")      Set the output file name
--O,--texoptions (default "")  Extra options that should
+-O,--texoptions (default "")  Extra options that should be passed to the LaTeX compiler
 -p,--pdflatex                 Select pdflatex as compiler explicitly
 -P,--print                    Don't compile the document, print the expanded template instead
 -s,--shell-escape             Enable execution of external commands in LaTeX
