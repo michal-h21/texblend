@@ -6,7 +6,7 @@ doc_pdf  = $(doc_root).pdf
 doc_html = $(doc_root).html
 
 tex_sources = $(doc_tex) intro.tex usage.tex
-readme_ctan = readme.ctan
+readme_ctan = readme-ctan.txt
 SCRIPT = texblend
 BUILD_DIR = build
 BUILD_TEXBLEND = $(BUILD_DIR)/$(SCRIPT)
