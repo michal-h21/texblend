@@ -3,6 +3,8 @@
 doc_root = texblend-doc
 doc_tex  = $(doc_root).tex
 doc_pdf  = $(doc_root).pdf
+doc_html = $(doc_root).html
+
 tex_sources = $(doc_tex) intro.tex usage.tex
 readme_ctan = readme-ctan.txt
 SCRIPT = texblend
@@ -19,11 +21,15 @@ ifeq ($(strip $(shell git rev-parse --is-inside-work-tree 2>/dev/null)),true)
 	DATE:= $(firstword $(shell git --no-pager show --date=short --format="%ad" --name-only))
 endif
 
-all: $(doc_pdf)
+all: $(doc_pdf) $(doc_html)
 	
 $(doc_pdf): $(tex_sources)
 	lualatex "\def\version{${VERSION}}\def\gitdate{${DATE}}\input{$<}"
 	lualatex "\def\version{${VERSION}}\def\gitdate{${DATE}}\input{$<}"
+
+$(doc_html): $(tex_sources)
+	make4ht -la debug $< 
+
 
 test:
 	texlua spec/test.lua
