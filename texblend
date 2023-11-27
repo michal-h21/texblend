@@ -274,6 +274,8 @@ else
     ,use_arguments    = use_arguments
     ,get_preamble     = get_preamble
     ,expand           = expand
+    ,cmd_options      = cmd_options
+    ,version_info     = version_info
   }
 end
 
