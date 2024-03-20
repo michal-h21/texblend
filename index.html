@@ -18,7 +18,7 @@
 <h2 class='titleHead'>TeXBlend – Compile Segments of LaTeX
 Documents</h2>
  <div class='author'><span class='ec-lmr-12'>Michal Hoftich &lt;</span><a href='michal.h21@gmail.com'><span class='ec-lmr-12'>michal.h21@gmail.com</span></a><span class='ec-lmr-12'>&gt;</span></div><br />
-<div class='date'><span class='ec-lmr-12'>Version devel, December 22, 2023</span></div>
+<div class='date'><span class='ec-lmr-12'>Version devel, March 20, 2024</span></div>
 </div><!-- tex4ht:inline --><div class='tabular'> <table class='tabular' id='TBL-2'><colgroup id='TBL-2-1g'><col id='TBL-2-1' /><col id='TBL-2-2' /></colgroup><tr id='TBL-2-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-1-1' style='white-space:nowrap; text-align:left;'> Homepage:    </td><td class='td11' id='TBL-2-1-2' style='white-space:nowrap; text-align:left;'> <a class='url' href='https://www.kodymirus.cz/texblend/'><span class='ec-lmtt-10'>https://www.kodymirus.cz/texblend/</span></a>     </td>
 </tr><tr id='TBL-2-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-2-1' style='white-space:nowrap; text-align:left;'> Issue tracker:  </td><td class='td11' id='TBL-2-2-2' style='white-space:nowrap; text-align:left;'> <a class='url' href='https://github.com/michal-h21/texblend'><span class='ec-lmtt-10'>https://github.com/michal-h21/texblend</span></a> </td></tr></table>     </div>
 <h3 class='likesectionHead' id='contents'><a id='x1-1000'></a>Contents</h3>
@@ -111,11 +111,11 @@ template documents.
 </p><!-- l. 73 --><p class='noindent'>
 </p>   
 <h4 class='subsectionHead' id='placement-of-the-main-document-and-templates'><span class='titlemark'>2.1   </span> <a id='x1-40002.1'></a>Placement of the Main Document and Templates</h4>
-<!-- l. 76 --><p class='noindent'>You can specify the full path to the main document in the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>root</span></span></span> property. TeXBlend
+<!-- l. 76 --><p class='noindent'>You can specify the full path to the main document in the <span class='obeylines-h'><code class='verb'>root</code></span> property. TeXBlend
 can also be used to compile documents using a universal template. The path to this
 template can be specified in full or can leverage the directory structure of TeX by
 placing it in a directory recognized by the KPSE library. This directory is typically
-designated for user packages, commonly found at <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>~/texmf/tex/latex</span></span></span>, although it
+designated for user packages, commonly found at <span class='obeylines-h'><code class='verb'>~/texmf/tex/latex</code></span>, although it
 may vary on different systems. You can identify its location on your system using the
 command:
                                                                   
@@ -155,7 +155,7 @@ $ kpsewhich templatename.tex
 incorporate variables into them. These variables can be populated from properties in
 the directives, such as the document title.
 </p><!-- l. 111 --><p class='indent'>   To include variables for expansion in the template, you can use the notation
-<span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>{{variableName}}</span></span></span>. For example, to set the document title, you can use
+<span class='obeylines-h'><code class='verb'>{{variableName}}</code></span>. For example, to set the document title, you can use
 <span class='ec-lmtt-10'>\title{{{title}}}</span>. The double curly braces around the variable will be
 replaced with its value, while the third pair of curly braces will remain in the
 document.
@@ -202,7 +202,7 @@ document.
 \end{document}
 </pre>
 <!-- l. 150 --><p class='nopar'>
-</p><!-- l. 152 --><p class='indent'>   You can require expansion of variables using the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--expand</span></span></span> command line
+</p><!-- l. 152 --><p class='indent'>   You can require expansion of variables using the <span class='obeylines-h'><code class='verb'>--expand</code></span> command line
 option.
 </p><!-- l. 3 --><p class='noindent'>
 </p>   
@@ -273,34 +273,34 @@ $ texblend -elo test chapter.tex
 </p><!-- l. 57 --><p class='noindent'>
 </p>   
 <h4 class='subsectionHead' id='compilation-options'><span class='titlemark'>3.2   </span> <a id='x1-80003.2'></a>Compilation Options</h4>
-<!-- l. 59 --><p class='noindent'>You can override the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>program</span></span></span> directive, which specifies the LaTeX engine used, with
-one of the options <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--lualatex</span></span></span>, <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--xelatex</span></span></span>, or <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--pdflatex</span></span></span>. The default program
-used when the document lacks a <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>program</span></span></span> directive and none of these options is used
-is <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>pdflatex</span></span></span>.
+<!-- l. 59 --><p class='noindent'>You can override the <span class='obeylines-h'><code class='verb'>program</code></span> directive, which specifies the LaTeX engine used, with
+one of the options <span class='obeylines-h'><code class='verb'>--lualatex</code></span>, <span class='obeylines-h'><code class='verb'>--xelatex</code></span>, or <span class='obeylines-h'><code class='verb'>--pdflatex</code></span>. The default program
+used when the document lacks a <span class='obeylines-h'><code class='verb'>program</code></span> directive and none of these options is used
+is <span class='obeylines-h'><code class='verb'>pdflatex</code></span>.
 </p><!-- l. 64 --><p class='indent'>   If the document uses external commands, such as with the Minted or Imakeidx
-packages, you can utilize the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--shell-escape</span></span></span> option.
+packages, you can utilize the <span class='obeylines-h'><code class='verb'>--shell-escape</code></span> option.
 </p><!-- l. 67 --><p class='indent'>   You can specify additional options for the LaTeX compiler using the
-<span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--texoptions</span></span></span> option.
+<span class='obeylines-h'><code class='verb'>--texoptions</code></span> option.
 </p><!-- l. 69 --><p class='indent'>   Instead of compiling, you can print the assembled document to standard output
-using the option <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--print</span></span></span>.
-</p><!-- l. 72 --><p class='indent'>   To change name of the generated PDF file, use the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--output</span></span></span> option.
+using the option <span class='obeylines-h'><code class='verb'>--print</code></span>.
+</p><!-- l. 72 --><p class='indent'>   To change name of the generated PDF file, use the <span class='obeylines-h'><code class='verb'>--output</code></span> option.
 </p><!-- l. 75 --><p class='noindent'>
 </p>   
 <h4 class='subsectionHead' id='usage-of-templates'><span class='titlemark'>3.3   </span> <a id='x1-90003.3'></a>Usage of Templates</h4>
-<!-- l. 78 --><p class='noindent'>Instead of the main document specified in the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>root</span></span></span> directive, you can use another
-document as a template, chosen using the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--template</span></span></span> option. You can use the entire
-file path or simply specify the file name, making use of the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>kpsewhich</span></span></span> command (see
+<!-- l. 78 --><p class='noindent'>Instead of the main document specified in the <span class='obeylines-h'><code class='verb'>root</code></span> directive, you can use another
+document as a template, chosen using the <span class='obeylines-h'><code class='verb'>--template</code></span> option. You can use the entire
+file path or simply specify the file name, making use of the <span class='obeylines-h'><code class='verb'>kpsewhich</code></span> command (see
 section <a href='#placement-of-the-main-document-and-templates'>2.1<!-- tex4ht:ref: sec:placement  --></a>) to locate the file.
-</p><!-- l. 83 --><p class='indent'>   If you are using variables in the template (see section <a href='#custom-variables-in-templates'>2.2<!-- tex4ht:ref: sec:variables  --></a>), use the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--expand</span></span></span>
+</p><!-- l. 83 --><p class='indent'>   If you are using variables in the template (see section <a href='#custom-variables-in-templates'>2.2<!-- tex4ht:ref: sec:variables  --></a>), use the <span class='obeylines-h'><code class='verb'>--expand</code></span>
 option to expand them with the values specified in the document’s directives.
 </p><!-- l. 90 --><p class='noindent'>
 </p>   
 <h4 class='subsectionHead' id='html-support'><span class='titlemark'>3.4   </span> <a id='x1-100003.4'></a>HTML Support</h4>
 <!-- l. 92 --><p class='noindent'>TeXBlend supports direct export to HTML using TeX4ht. A note regarding the
-<span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>--texoptions</span></span></span> command line option: you can utilize this option to pass all
-command-line arguments to <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>make4ht</span></span></span>. Ensure to include the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>-</span></span></span> character in place of
+<span class='obeylines-h'><code class='verb'>--texoptions</code></span> command line option: you can utilize this option to pass all
+command-line arguments to <span class='obeylines-h'><code class='verb'>make4ht</code></span>. Ensure to include the <span class='obeylines-h'><code class='verb'>-</code></span> character in place of
 the filename for proper execution.
-</p><!-- l. 97 --><p class='indent'>   For example, if you want to use the <span class='obeylines-h'><span class='verb'><span class='ec-lmtt-10'>fn-in</span></span></span> option for endnotes, use the following
+</p><!-- l. 97 --><p class='indent'>   For example, if you want to use the <span class='obeylines-h'><code class='verb'>fn-in</code></span> option for endnotes, use the following
 command:
                                                                   
 
