@@ -1,5 +1,8 @@
 package.path=package.path .. ';./build/texblend/?'
 _G.__test__ = true
+-- tutorials for manpages:
+--   https://tldp.org/HOWTO/Man-Page/q3.html
+--   https://liw.fi/manpages/
 -- try to translate the help message to a Man page
 local texblend = require("texblend")
 
