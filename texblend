@@ -68,6 +68,22 @@ local function exit_on_error(status, msg)
   end
 end
 
+local function expand(metadata, template, ignored)
+  -- you pass list of ignored tags 
+  local ignored = ignored or {}
+  local new_ignored = {}
+  for _, v in ipairs(ignored) do new_ignored[v] = true end
+  -- expand {{variablename}} tags in the template. The variablename key must exitst
+  -- in the metadata table. If the variable doesn't exist, nothing is rendered
+  local expanded = template:gsub("{{([%a%d}]-)}}", function(key)
+    if not new_ignored[key] then
+      return metadata[key] or ""
+    end
+  end)
+  return expanded
+end
+
+
 local function get_preamble(text)
   -- try to get the document preamble
   local preamble = {}
@@ -88,6 +104,11 @@ end
 
 -- 
 local function prepare_template(document, template)
+  -- if template contains {{content}}, then process it differently than with the default method
+  local content_pattern = "{{content}}"
+  if template:match(content_pattern) then
+    return template:gsub(content_pattern, document)
+  end
   -- try to read document preamble from the template
   local preamble, msg = get_preamble(template)
   if not preamble then return nil, msg end
@@ -135,15 +156,6 @@ local function use_arguments(metadata, arguments)
   metadata.html = arguments.HTML
   metadata.options = arguments.texoptions
   return metadata
-end
-
-local function expand(metadata, template)
-  -- expand {{variablename}} tags in the template. The variablename key must exitst
-  -- in the metadata table. If the variable doesn't exist, nothing is rendered
-  local expanded = template:gsub("{{([%a%d}]-)}}", function(key)
-    return metadata[key] or ""
-  end)
-  return expanded
 end
 
 local function load_file(filename)
@@ -250,7 +262,9 @@ if not __test__ then
   exit_on_error(metadata.template, msg)
 
   if arguments.expand then
-    metadata.template = expand(metadata,metadata.template)
+    -- list of tags that shouldn't be expanded at this stage. it will be expanded later.
+    local ignore = {"content"}
+    metadata.template = expand(metadata,metadata.template, ignore)
   end
 
   local full_document, msg = prepare_template(document, metadata.template)

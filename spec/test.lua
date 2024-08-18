@@ -1,4 +1,13 @@
 require "busted.runner" ()
+
+local describe = describe
+local it = it
+local assert = assert
+assert.truthy = assert.truthy
+assert.same = assert.same
+assert.falsy = assert.falsy
+assert.string = assert.string
+
 package.path=package.path .. ';?'
 _G.__test__ = true
 local texblend = require("texblend")
@@ -41,6 +50,15 @@ local test_main = [[
 hello document
 \end{document}
   ]]
+
+local test_content = [[ 
+\documentclass{article}
+\usepackage{fontspec}
+\begin{document}
+\maketitle
+{{content}}
+\end{document}
+]]
 describe("test preamble parsing", function()
   it("should parse preamble", function()
     local preamble = texblend.get_preamble(test_main)
@@ -59,6 +77,16 @@ describe("test template setting", function()
     assert.truthy(joined:match("document"))
     assert.truthy(joined:match("included"))
     assert.falsy(joined:match("hello"))
+  end)
+end)
+
+describe("test template with {{content}} tag", function()
+  it("should support {{content} tag", function()
+    local doc = "hello doc" 
+    local joined = texblend.prepare_template(doc, test_content)
+    assert.truthy(joined:match("hello"))
+    assert.truthy(joined:match("maketitle"))
+    assert.truthy(joined:match("fontspec"))
   end)
 end)
 
@@ -108,6 +136,10 @@ describe("test expand", function()
     assert.same(texblend.expand(metadata, template), "this is \\command{{something} else}")
     local template = "\\command{{{hello}}}"
     assert.same(texblend.expand(metadata, template), "\\command{world}")
+  end)
+  it("should support ignored tags", function()
+    local template = "hello {{hello}}, {{content}}"
+    assert.same(texblend.expand(metadata, template, {"content"}), "hello world, {{content}}")
   end)
 end)
 
