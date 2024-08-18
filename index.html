@@ -18,7 +18,7 @@
 <h2 class='titleHead'>TeXBlend – Compile Segments of LaTeX
 Documents</h2>
  <div class='author'><span class='ec-lmr-12'>Michal Hoftich &lt;</span><a href='michal.h21@gmail.com'><span class='ec-lmr-12'>michal.h21@gmail.com</span></a><span class='ec-lmr-12'>&gt;</span></div><br />
-<div class='date'><span class='ec-lmr-12'>Version devel, March 20, 2024</span></div>
+<div class='date'><span class='ec-lmr-12'>Version devel, August 18, 2024</span></div>
 </div><!-- tex4ht:inline --><div class='tabular'> <table class='tabular' id='TBL-2'><colgroup id='TBL-2-1g'><col id='TBL-2-1' /><col id='TBL-2-2' /></colgroup><tr id='TBL-2-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-1-1' style='white-space:nowrap; text-align:left;'> Homepage:    </td><td class='td11' id='TBL-2-1-2' style='white-space:nowrap; text-align:left;'> <a class='url' href='https://www.kodymirus.cz/texblend/'><span class='ec-lmtt-10'>https://www.kodymirus.cz/texblend/</span></a>     </td>
 </tr><tr id='TBL-2-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-2-1' style='white-space:nowrap; text-align:left;'> Issue tracker:  </td><td class='td11' id='TBL-2-2-2' style='white-space:nowrap; text-align:left;'> <a class='url' href='https://github.com/michal-h21/texblend'><span class='ec-lmtt-10'>https://github.com/michal-h21/texblend</span></a> </td></tr></table>     </div>
 <h3 class='likesectionHead' id='contents'><a id='x1-1000'></a>Contents</h3>
@@ -27,13 +27,14 @@ Documents</h2>
 <br />   <span class='sectionToc'>2 <a href='#structure-of-tex-files' id='QQ2-1-3'>Structure of TeX Files</a></span>
 <br />   <span class='subsectionToc'>2.1 <a href='#placement-of-the-main-document-and-templates' id='QQ2-1-4'>Placement of the Main Document and Templates</a></span>
 <br />   <span class='subsectionToc'>2.2 <a href='#custom-variables-in-templates' id='QQ2-1-5'>Custom Variables in Templates</a></span>
-<br />   <span class='sectionToc'>3 <a href='#usage' id='QQ2-1-6'>Usage</a></span>
-<br />   <span class='subsectionToc'>3.1 <a href='#command-line-options' id='QQ2-1-7'>Command Line Options</a></span>
-<br />   <span class='subsectionToc'>3.2 <a href='#compilation-options' id='QQ2-1-8'>Compilation Options</a></span>
-<br />   <span class='subsectionToc'>3.3 <a href='#usage-of-templates' id='QQ2-1-9'>Usage of Templates</a></span>
-<br />   <span class='subsectionToc'>3.4 <a href='#html-support' id='QQ2-1-10'>HTML Support</a></span>
-<br />   <span class='sectionToc'>4 <a href='#license' id='QQ2-1-11'>License</a></span>
-<br />   <span class='sectionToc'>5 <a href='#changelog' id='QQ2-1-12'>Changelog</a></span>
+<br />   <span class='subsectionToc'>2.3 <a href='#keeping-content-of-the-document-environment-in-the-template' id='QQ2-1-6'>Keeping Content of the <span class='ec-lmtt-10'>document </span>Environment in the Template</a></span>
+<br />   <span class='sectionToc'>3 <a href='#usage' id='QQ2-1-7'>Usage</a></span>
+<br />   <span class='subsectionToc'>3.1 <a href='#command-line-options' id='QQ2-1-8'>Command Line Options</a></span>
+<br />   <span class='subsectionToc'>3.2 <a href='#compilation-options' id='QQ2-1-9'>Compilation Options</a></span>
+<br />   <span class='subsectionToc'>3.3 <a href='#usage-of-templates' id='QQ2-1-10'>Usage of Templates</a></span>
+<br />   <span class='subsectionToc'>3.4 <a href='#html-support' id='QQ2-1-11'>HTML Support</a></span>
+<br />   <span class='sectionToc'>4 <a href='#license' id='QQ2-1-12'>License</a></span>
+<br />   <span class='sectionToc'>5 <a href='#changelog' id='QQ2-1-13'>Changelog</a></span>
 </div>
 <!-- l. 4 --><p class='noindent'>
 </p>   
@@ -43,11 +44,11 @@ utilizes the preamble of the main document but disregards all other included
 files.
 </p><!-- l. 8 --><p class='indent'>   The main purpose is to allow fast compilation of particular chapters or sections,
 eliminating the need to recompile the entire document. This facilitates an efficient
-way to check for formatting or syntax errors in the particular part of the document
-being worked on.
                                                                   
 
                                                                   
+way to check for formatting or syntax errors in the particular part of the document
+being worked on.
 </p><!-- l. 13 --><p class='noindent'>
 </p>   
 <h3 class='sectionHead' id='structure-of-tex-files'><span class='titlemark'>2   </span> <a id='x1-30002'></a>Structure of TeX Files</h3>
@@ -204,15 +205,36 @@ document.
 <!-- l. 150 --><p class='nopar'>
 </p><!-- l. 152 --><p class='indent'>   You can require expansion of variables using the <span class='obeylines-h'><code class='verb'>--expand</code></span> command line
 option.
-</p><!-- l. 3 --><p class='noindent'>
+</p><!-- l. 154 --><p class='noindent'>
 </p>   
-<h3 class='sectionHead' id='usage'><span class='titlemark'>3   </span> <a id='x1-60003'></a>Usage</h3>
-<!-- l. 5 --><p class='noindent'>The basic usage of TeXBlend is as follows:
+<h4 class='subsectionHead' id='keeping-content-of-the-document-environment-in-the-template'><span class='titlemark'>2.3   </span> <a id='x1-60002.3'></a>Keeping Content of the <span class='ec-lmtt-10'>document </span>Environment in the Template</h4>
+<!-- l. 156 --><p class='noindent'>If you want to use commands and environments inside the <span class='ec-lmtt-10'>document </span>environment in
+the template, you can use the <span class='obeylines-h'><code class='verb'>{{content}}</code></span> tag. This tag will be replaced with the
+contents of the processed document.
+</p><!-- l. 159 --><p class='indent'>   For example, the following template can be used to typeset Markdown
+documents.
                                                                   
 
                                                                   
 </p>   
 <pre class='verbatim' id='verbatim-9'>
+\documentclass{article}
+\usepackage[hybrid]{markdown}
+\begin{document}
+\begin{markdown}
+{{content}}
+\end{markdown}
+\end{document}
+</pre>
+<!-- l. 169 --><p class='nopar'>
+</p>   
+<h3 class='sectionHead' id='usage'><span class='titlemark'>3   </span> <a id='x1-70003'></a>Usage</h3>
+<!-- l. 5 --><p class='noindent'>The basic usage of TeXBlend is as follows:
+                                                                  
+
+                                                                  
+</p>   
+<pre class='verbatim' id='verbatim-10'>
 $ texblend chapter.tex
 </pre>
 <!-- l. 9 --><p class='nopar'>
@@ -221,13 +243,13 @@ preamble from the main document specified in the root directive and directly
 compiles the resulting document. The output will be saved as <span class='ec-lmtt-10'>chapter.pdf</span>.
 </p><!-- l. 15 --><p class='noindent'>
 </p>   
-<h4 class='subsectionHead' id='command-line-options'><span class='titlemark'>3.1   </span> <a id='x1-70003.1'></a>Command Line Options</h4>
+<h4 class='subsectionHead' id='command-line-options'><span class='titlemark'>3.1   </span> <a id='x1-80003.1'></a>Command Line Options</h4>
 <!-- l. 17 --><p class='noindent'>TeXBlend supports a variety of command-line options:
                                                                   
 
                                                                   
 </p>   
-<pre class='verbatim' id='verbatim-10'>
+<pre class='verbatim' id='verbatim-11'>
  texblend [options] filename
 
 Available options:
@@ -257,7 +279,7 @@ short options:
 
                                                                   
 </p>   
-<pre class='verbatim' id='verbatim-11'>
+<pre class='verbatim' id='verbatim-12'>
 $ texblend -e -l -o test chapter.tex
 </pre>
 <!-- l. 47 --><p class='nopar'>
@@ -266,13 +288,13 @@ $ texblend -e -l -o test chapter.tex
 
                                                                   
 </p>   
-<pre class='verbatim' id='verbatim-12'>
+<pre class='verbatim' id='verbatim-13'>
 $ texblend -elo test chapter.tex
 </pre>
 <!-- l. 53 --><p class='nopar'>
 </p><!-- l. 57 --><p class='noindent'>
 </p>   
-<h4 class='subsectionHead' id='compilation-options'><span class='titlemark'>3.2   </span> <a id='x1-80003.2'></a>Compilation Options</h4>
+<h4 class='subsectionHead' id='compilation-options'><span class='titlemark'>3.2   </span> <a id='x1-90003.2'></a>Compilation Options</h4>
 <!-- l. 59 --><p class='noindent'>You can override the <span class='obeylines-h'><code class='verb'>program</code></span> directive, which specifies the LaTeX engine used, with
 one of the options <span class='obeylines-h'><code class='verb'>--lualatex</code></span>, <span class='obeylines-h'><code class='verb'>--xelatex</code></span>, or <span class='obeylines-h'><code class='verb'>--pdflatex</code></span>. The default program
 used when the document lacks a <span class='obeylines-h'><code class='verb'>program</code></span> directive and none of these options is used
@@ -286,7 +308,7 @@ using the option <span class='obeylines-h'><code class='verb'>--print</code></sp
 </p><!-- l. 72 --><p class='indent'>   To change name of the generated PDF file, use the <span class='obeylines-h'><code class='verb'>--output</code></span> option.
 </p><!-- l. 75 --><p class='noindent'>
 </p>   
-<h4 class='subsectionHead' id='usage-of-templates'><span class='titlemark'>3.3   </span> <a id='x1-90003.3'></a>Usage of Templates</h4>
+<h4 class='subsectionHead' id='usage-of-templates'><span class='titlemark'>3.3   </span> <a id='x1-100003.3'></a>Usage of Templates</h4>
 <!-- l. 78 --><p class='noindent'>Instead of the main document specified in the <span class='obeylines-h'><code class='verb'>root</code></span> directive, you can use another
 document as a template, chosen using the <span class='obeylines-h'><code class='verb'>--template</code></span> option. You can use the entire
 file path or simply specify the file name, making use of the <span class='obeylines-h'><code class='verb'>kpsewhich</code></span> command (see
@@ -295,7 +317,7 @@ section <a href='#placement-of-the-main-document-and-templates'>2.1<!-- tex4ht:
 option to expand them with the values specified in the document’s directives.
 </p><!-- l. 90 --><p class='noindent'>
 </p>   
-<h4 class='subsectionHead' id='html-support'><span class='titlemark'>3.4   </span> <a id='x1-100003.4'></a>HTML Support</h4>
+<h4 class='subsectionHead' id='html-support'><span class='titlemark'>3.4   </span> <a id='x1-110003.4'></a>HTML Support</h4>
 <!-- l. 92 --><p class='noindent'>TeXBlend supports direct export to HTML using TeX4ht. A note regarding the
 <span class='obeylines-h'><code class='verb'>--texoptions</code></span> command line option: you can utilize this option to pass all
 command-line arguments to <span class='obeylines-h'><code class='verb'>make4ht</code></span>. Ensure to include the <span class='obeylines-h'><code class='verb'>-</code></span> character in place of
@@ -306,7 +328,7 @@ command:
 
                                                                   
 </p>   
-<pre class='verbatim' id='verbatim-13'>
+<pre class='verbatim' id='verbatim-14'>
 $ texblend  -HO '- "fn-in"' chapter.tex
 </pre>
 <!-- l. 101 --><p class='nopar'>
@@ -316,26 +338,29 @@ command:
 
                                                                   
 </p>   
-<pre class='verbatim' id='verbatim-14'>
+<pre class='verbatim' id='verbatim-15'>
 $ texblend -HO '-c config.cfg - "fn-in"' chapter.tex
 </pre>
 <!-- l. 107 --><p class='nopar'>
 </p><!-- l. 36 --><p class='noindent'>
 </p>   
-<h3 class='sectionHead' id='license'><span class='titlemark'>4   </span> <a id='x1-110004'></a>License</h3>
+<h3 class='sectionHead' id='license'><span class='titlemark'>4   </span> <a id='x1-120004'></a>License</h3>
 <!-- l. 38 --><p class='noindent'>Permission is granted to copy, distribute and/or modify this software under the terms
 of the LaTeX Project Public License, version 1.3.
 </p><!-- l. 41 --><p class='noindent'>
 </p>   
-<h3 class='sectionHead' id='changelog'><span class='titlemark'>5   </span> <a id='x1-120005'></a>Changelog</h3>
+<h3 class='sectionHead' id='changelog'><span class='titlemark'>5   </span> <a id='x1-130005'></a>Changelog</h3>
 <!-- l. 42 --><p class='noindent'>
-<a id='x1-12001r1'></a></p>   
+<a id='x1-13001r1'></a></p>   
 <!-- l. 43 --><div class='longtable'> <table class='longtable' id='TBL-3'><colgroup id='TBL-3-1g'><col id='TBL-3-1' /><col id='TBL-3-2' /></colgroup>
-<tr id='TBL-3-1-' style='vertical-align:baseline;'><td class='td01' id='TBL-3-1-1' style='white-space:nowrap; text-align:left;'>2023-11-24  </td>
+<tr id='TBL-3-1-' style='vertical-align:baseline;'><td class='td01' id='TBL-3-1-1' style='white-space:nowrap; text-align:left;'>2024-08-18  </td>
 <td class='td11' id='TBL-3-1-2' style='white-space:normal; text-align:left;'> 
-<!-- l. 43 --><p class='noindent'>Initial release                                                                          </p></td>
-</tr><tr id='TBL-3-6-' style='vertical-align:baseline;'><td class='td01' id='TBL-3-6-1' style='white-space:nowrap; text-align:left;'>          
-</td><td class='td11' id='TBL-3-6-2' style='white-space:normal; text-align:left;'>
+<!-- l. 43 --><p class='noindent'>Added support for the <span class='ec-lmtt-10'>{{content}} </span>tag in template documents        </p></td>
+</tr><tr id='TBL-3-2-' style='vertical-align:baseline;'><td class='td01' id='TBL-3-2-1' style='white-space:nowrap; text-align:left;'>2023-11-24  </td>
+<td class='td11' id='TBL-3-2-2' style='white-space:normal; text-align:left;'> 
+<!-- l. 44 --><p class='noindent'>Initial release                                                                          </p></td>
+</tr><tr id='TBL-3-7-' style='vertical-align:baseline;'><td class='td01' id='TBL-3-7-1' style='white-space:nowrap; text-align:left;'>          
+</td><td class='td11' id='TBL-3-7-2' style='white-space:normal; text-align:left;'>
 </td></tr>
 </table></div>   
  
