@@ -151,3 +151,19 @@ This produces a following document with variables expanded:
 
 You can require expansion of variables using the \verb|--expand| command line option.
 
+\subsection{Keeping Content of the \texttt{document} Environment in the Template}
+
+If you want to use commands and environments inside the \texttt{document} environment in the template,
+you can use the \verb|{{content}}| tag. This tag will be replaced with the contents of the processed document.
+
+For example, the following template can be used to typeset Markdown documents. 
+
+\begin{verbatim}
+\documentclass{article}
+\usepackage[hybrid]{markdown}
+\begin{document}
+\begin{markdown}
+{{content}}
+\end{markdown}
+\end{document}
+\end{verbatim}
