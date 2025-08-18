@@ -9,7 +9,7 @@ jobs:
       contents: write
       packages: write
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Run make4ht
       # uses: michal-h21/make4ht-action@master
       uses: xu-cheng/texlive-action@v3
