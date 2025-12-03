@@ -65,7 +65,7 @@ The next element is the property name with an optional \texttt{TS-} prefix
 (in line with the TeX Shop editor), followed by an equals sign and, finally, the
 value.
 
-Two crucial properties are \texttt{root}, indicating the name of the main file, and
+Two crucial properties are \texttt{root}, indicating the relative path to the main file, and
 \texttt{program}, through which we can select the program for compiling the document.
 However, it is possible to specify additional properties, which can then be
 utilized in template documents.
@@ -73,7 +73,7 @@ utilized in template documents.
 \subsection{Placement of the Main Document and Templates}
 \label{sec:placement}
 
-You can specify the full path to the main document in the \verb|root| property.
+You can specify the relative path to the main document in the \verb|root| property.
 \TeX Blend can also be used to compile documents using a universal template. 
 The path to this template can be specified in full or can leverage the directory
 structure of TeX by placing it in a directory recognized by the KPSE library.
