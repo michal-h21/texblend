@@ -18,7 +18,7 @@
 <h1 class='titleHead'>TeXBlend – Compile Segments of LaTeX
 Documents</h1>
  <div class='author'><span class='ec-lmr-12'>Michal Hoftich &lt;</span><a href='michal.h21@gmail.com'><span class='ec-lmr-12'>michal.h21@gmail.com</span></a><span class='ec-lmr-12'>&gt;</span></div><br />
-<div class='date'><span class='ec-lmr-12'>Version devel, November 24, 2025</span></div>
+<div class='date'><span class='ec-lmr-12'>Version devel, December 3, 2025</span></div>
 </div><!-- tex4ht:inline --><div class='tabular'> <table class='tabular' id='TBL-2'><colgroup id='TBL-2-1g'><col id='TBL-2-1' /><col id='TBL-2-2' /></colgroup><tr id='TBL-2-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-1-1' style='white-space:nowrap; text-align:left;'> Homepage:    </td><td class='td11' id='TBL-2-1-2' style='white-space:nowrap; text-align:left;'> <a class='url' href='https://www.kodymirus.cz/texblend/'><span class='ec-lmtt-10'>https://www.kodymirus.cz/texblend/</span></a>     </td>
 </tr><tr id='TBL-2-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-2-1' style='white-space:nowrap; text-align:left;'> Issue tracker:  </td><td class='td11' id='TBL-2-2-2' style='white-space:nowrap; text-align:left;'> <a class='url' href='https://github.com/michal-h21/texblend'><span class='ec-lmtt-10'>https://github.com/michal-h21/texblend</span></a> </td></tr></table>     </div>
 <h3 class='likesectionHead' id='contents'><a id='x1-1000'></a>Contents</h3>
@@ -104,20 +104,20 @@ followed by either the marker <span class='ec-lmtt-10'>!TEX </span>or <span clas
 formats. The next element is the property name with an optional <span class='ec-lmtt-10'>TS- </span>prefix (in
 line with the TeX Shop editor), followed by an equals sign and, finally, the
 value.
-</p><!-- l. 68 --><p class='indent'>   Two crucial properties are <span class='ec-lmtt-10'>root</span>, indicating the name of the main file, and
+</p><!-- l. 68 --><p class='indent'>   Two crucial properties are <span class='ec-lmtt-10'>root</span>, indicating the relative path to the main file, and
 <span class='ec-lmtt-10'>program</span>, through which we can select the program for compiling the document.
 However, it is possible to specify additional properties, which can then be utilized in
 template documents.
 
 </p>   
 <h4 class='subsectionHead' id='placement-of-the-main-document-and-templates'><span class='titlemark'>2.1   </span> <a id='x1-40002.1'></a>Placement of the Main Document and Templates</h4>
-<!-- l. 76 --><p class='noindent'>You can specify the full path to the main document in the <span class='obeylines-h'><code class='verb'>root</code></span> property. TeXBlend
-can also be used to compile documents using a universal template. The path to this
-template can be specified in full or can leverage the directory structure of TeX by
-placing it in a directory recognized by the KPSE library. This directory is typically
-designated for user packages, commonly found at <span class='obeylines-h'><code class='verb'>~/texmf/tex/latex</code></span>, although it
-may vary on different systems. You can identify its location on your system using the
-command:
+<!-- l. 76 --><p class='noindent'>You can specify the relative path to the main document in the <span class='obeylines-h'><code class='verb'>root</code></span> property.
+TeXBlend can also be used to compile documents using a universal template. The
+path to this template can be specified in full or can leverage the directory structure
+of TeX by placing it in a directory recognized by the KPSE library. This directory is
+typically designated for user packages, commonly found at <span class='obeylines-h'><code class='verb'>~/texmf/tex/latex</code></span>,
+although it may vary on different systems. You can identify its location on your
+system using the command:
                                                                   
 
                                                                   
@@ -352,12 +352,16 @@ of the LaTeX Project Public License, version 1.3.
 <!-- l. 42 --><p class='noindent'>
 <a id='x1-13001r1'></a></p>   
 <!-- l. 43 --><div class='longtable'> <table class='longtable' id='TBL-3'><colgroup id='TBL-3-1g'><col id='TBL-3-1' /><col id='TBL-3-2' /></colgroup>
-<tr id='TBL-3-1-' style='vertical-align:baseline;'><td class='td01' id='TBL-3-1-1' style='white-space:nowrap; text-align:left;'>2024-08-18  </td>
+<tr id='TBL-3-1-' style='vertical-align:baseline;'><td class='td01' id='TBL-3-1-1' style='white-space:nowrap; text-align:left;'>2025-12-03  </td>
 <td class='td11' id='TBL-3-1-2' style='white-space:normal; text-align:left;'> 
-<!-- l. 43 --><p class='noindent'>Added support for the <span class='ec-lmtt-10'>{{content}} </span>tag in template documents        </p></td>
-</tr><tr id='TBL-3-2-' style='vertical-align:baseline;'><td class='td01' id='TBL-3-2-1' style='white-space:nowrap; text-align:left;'>2023-11-24  </td>
+<!-- l. 43 --><p class='noindent'>Crarified  the  use  of  relative  paths  to  the  root  document  in  the 
+documentation                                                                        </p></td>
+</tr><tr id='TBL-3-2-' style='vertical-align:baseline;'><td class='td01' id='TBL-3-2-1' style='white-space:nowrap; text-align:left;'>2024-08-18  </td>
 <td class='td11' id='TBL-3-2-2' style='white-space:normal; text-align:left;'> 
-<!-- l. 44 --><p class='noindent'>Initial release                                                                          </p></td>
+<!-- l. 44 --><p class='noindent'>Added support for the <span class='ec-lmtt-10'>{{content}} </span>tag in template documents        </p></td>
+</tr><tr id='TBL-3-3-' style='vertical-align:baseline;'><td class='td01' id='TBL-3-3-1' style='white-space:nowrap; text-align:left;'>2023-11-24  </td>
+<td class='td11' id='TBL-3-3-2' style='white-space:normal; text-align:left;'> 
+<!-- l. 45 --><p class='noindent'>Initial release                                                                          </p></td>
 </tr>
 </table></div>   
  
